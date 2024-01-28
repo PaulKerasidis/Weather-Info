@@ -1,25 +1,18 @@
 package com.paulkera.weatherinfo.di
 
-import android.app.Activity
-import android.app.Application
 import android.content.Context
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.paulkera.weatherinfo.data.location.DefaultLocationTracker
 import com.paulkera.weatherinfo.data.remote.WeatherApi
 import com.paulkera.weatherinfo.data.repository.WeatherRepositoryImp
-import com.paulkera.weatherinfo.domain.location.LocationTracker
 import com.paulkera.weatherinfo.domain.repository.WeatherRepository
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module

@@ -1,6 +1,6 @@
 package com.paulkera.weatherinfo.di
 
-import com.paulkera.weatherinfo.data.location.DefaultLocationTracker
+import com.paulkera.weatherinfo.data.location.LocationTrackerImp
 import com.paulkera.weatherinfo.domain.location.LocationTracker
 import dagger.Binds
 import dagger.Module
@@ -16,5 +16,5 @@ abstract class LocationModule {
 
     @Binds
     @Singleton
-    abstract fun bindLocationTracker(defaultLocationTracker: DefaultLocationTracker): LocationTracker
+    abstract fun bindLocationTracker(defaultLocationTracker: LocationTrackerImp): LocationTracker
 }

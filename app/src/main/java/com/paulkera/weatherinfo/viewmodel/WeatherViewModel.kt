@@ -1,7 +1,6 @@
 package com.paulkera.weatherinfo.viewmodel
 
-import android.content.ContentValues.TAG
-import android.util.Log
+
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -29,7 +28,7 @@ class WeatherViewModel @Inject constructor(
                 isLoading = true,
                 error = null
             )
-            locationTracker.getCurrentLocation()?.let { location ->
+            locationTracker.getCurrentLocation().collect { location ->
                 when(val result = repository.getWeatherData(location.latitude, location.longitude)) {
                     is Resource.Success -> {
                         state = state.copy(
@@ -42,14 +41,10 @@ class WeatherViewModel @Inject constructor(
                         state = state.copy(
                             weatherInfo = null,
                             isLoading = false,
-                            error = "ERROR NO DATA"
+                            error = result.message
                         )
                     }
                 }
-            } ?: kotlin.run {
-                state = state.copy(
-                    isLoading = false,
-                )
             }
         }
     }
