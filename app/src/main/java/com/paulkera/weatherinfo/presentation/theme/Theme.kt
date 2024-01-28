@@ -1,4 +1,4 @@
-package com.paulkera.weatherinfo.presentation.ui.theme
+package com.paulkera.weatherinfo.presentation.theme
 
 import android.app.Activity
 import android.os.Build
@@ -16,9 +16,9 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = BrightDay,
+    secondary = CloudyDay,
+    tertiary = Night
 )
 
 private val LightColorScheme = lightColorScheme(

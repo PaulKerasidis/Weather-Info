@@ -1,5 +1,7 @@
-package com.paulkera.weatherinfo.presentation
+package com.paulkera.weatherinfo.viewmodel
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -15,8 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository,
-    private val locationTracker: LocationTracker,
-) : ViewModel() {
+    private val locationTracker: LocationTracker
+): ViewModel() {
 
     var state by mutableStateOf(WeatherState())
         private set
@@ -28,7 +30,7 @@ class WeatherViewModel @Inject constructor(
                 error = null
             )
             locationTracker.getCurrentLocation()?.let { location ->
-                when(val result = repository.getWeatherData(location.latitude,location.longitude)){
+                when(val result = repository.getWeatherData(location.latitude, location.longitude)) {
                     is Resource.Success -> {
                         state = state.copy(
                             weatherInfo = result.data,
@@ -40,14 +42,13 @@ class WeatherViewModel @Inject constructor(
                         state = state.copy(
                             weatherInfo = null,
                             isLoading = false,
-                            error = result.message
+                            error = "ERROR NO DATA"
                         )
                     }
                 }
-            }?: kotlin.run {
+            } ?: kotlin.run {
                 state = state.copy(
                     isLoading = false,
-                    error = "Couldn't retrieve location. Make sure to grant permission and enable GPS."
                 )
             }
         }

@@ -5,11 +5,14 @@ import com.paulkera.weatherinfo.data.remote.WeatherApi
 import com.paulkera.weatherinfo.domain.repository.WeatherRepository
 import com.paulkera.weatherinfo.domain.util.Resource
 import com.paulkera.weatherinfo.domain.weather.WeatherInfo
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
+@ActivityScoped
 class WeatherRepositoryImp @Inject constructor(
     private val api: WeatherApi
-):WeatherRepository {
+): WeatherRepository {
+
     override suspend fun getWeatherData(lat: Double, long: Double): Resource<WeatherInfo> {
         return try {
             Resource.Success(
@@ -18,9 +21,9 @@ class WeatherRepositoryImp @Inject constructor(
                     long = long
                 ).toWeatherInfo()
             )
-        } catch (e:Exception){
+        } catch(e: Exception) {
             e.printStackTrace()
-            Resource.Error(e.message ?: "An unknown error accured.")
+            Resource.Error(e.message ?: "An unknown error occurred.")
         }
     }
 }

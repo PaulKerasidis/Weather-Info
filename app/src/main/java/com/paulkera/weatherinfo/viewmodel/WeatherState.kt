@@ -1,4 +1,4 @@
-package com.paulkera.weatherinfo.presentation
+package com.paulkera.weatherinfo.viewmodel
 
 import com.paulkera.weatherinfo.domain.weather.WeatherInfo
 
