@@ -1,9 +1,6 @@
 package com.paulkera.weatherinfo.viewmodel
 
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paulkera.weatherinfo.data.location.NoPermissionsException
@@ -11,8 +8,12 @@ import com.paulkera.weatherinfo.domain.location.LocationTracker
 import com.paulkera.weatherinfo.domain.repository.WeatherRepository
 import com.paulkera.weatherinfo.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
@@ -20,12 +21,18 @@ class WeatherViewModel @Inject constructor(
     private val locationTracker: LocationTracker
 ) : ViewModel() {
 
-    var state by mutableStateOf(WeatherState())
-        private set
+    private val _state: MutableStateFlow<WeatherState> = MutableStateFlow(WeatherState())
+    val state: StateFlow<WeatherState> = _state.asStateFlow()
+
+    fun reLoadWeatherInfo(){
+
+            loadWeatherInfo()
+
+    }
 
     fun loadWeatherInfo() {
         viewModelScope.launch {
-            state = state.copy(
+            _state.value = _state.value.copy(
                 isLoading = true,
                 error = null
             )
@@ -35,7 +42,7 @@ class WeatherViewModel @Inject constructor(
                     when (val result =
                         repository.getWeatherData(location.latitude, location.longitude)) {
                         is Resource.Success -> {
-                            state = state.copy(
+                            _state.value = _state.value.copy(
                                 weatherInfo = result.data,
                                 isLoading = false,
                                 error = null
@@ -43,7 +50,7 @@ class WeatherViewModel @Inject constructor(
                         }
 
                         is Resource.Error -> {
-                            state = state.copy(
+                            _state.value = _state.value.copy(
                                 weatherInfo = null,
                                 isLoading = false,
                                 error = result.message
@@ -52,7 +59,7 @@ class WeatherViewModel @Inject constructor(
                     }
                 }
             } catch (e: NoPermissionsException) {
-                state = state.copy(
+                _state.value = _state.value.copy(
                     isLoading = false,
                     error = "Couldn't retrieve location. Make sure to grant permission and enable GPS."
                 )
