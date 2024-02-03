@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.paulkera.weatherinfo.presentation.theme.WeatherInfoTheme
 import com.paulkera.weatherinfo.presentation.ui.composables.WeatherCard
@@ -42,7 +43,6 @@ class MainActivity : ComponentActivity() {
             viewModel.loadWeatherInfo()
         }
         permissionLauncher.launch(arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
 
         ))
@@ -81,7 +81,8 @@ class MainActivity : ComponentActivity() {
                     viewModel.state.error?.let { error ->
                         Text(
                             text = error,
-                            color = Color.Red,
+                            color = Color.White,
+                            fontSize = 20.sp,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.align(Alignment.Center)
                         )
