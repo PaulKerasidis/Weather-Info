@@ -35,6 +35,7 @@ fun WeatherForecast(
             LazyRow(content = {
                 itemsIndexed(data) {index, weatherData->
                     HourlyWeatherDisplay(
+                        state = state,
                         weatherData = weatherData,
                         modifier = Modifier
                             .height(100.dp)

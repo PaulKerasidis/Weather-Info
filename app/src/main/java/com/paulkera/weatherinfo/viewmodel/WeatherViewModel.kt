@@ -24,9 +24,10 @@ class WeatherViewModel @Inject constructor(
     private val _state: MutableStateFlow<WeatherState> = MutableStateFlow(WeatherState())
     val state: StateFlow<WeatherState> = _state.asStateFlow()
 
-    fun reLoadWeatherInfo(){
+    fun reLoadWeatherInfo() {
 
-            loadWeatherInfo()
+        loadWeatherInfo()
+        loadIsDay()
 
     }
 
@@ -48,7 +49,6 @@ class WeatherViewModel @Inject constructor(
                                 error = null
                             )
                         }
-
                         is Resource.Error -> {
                             _state.value = _state.value.copy(
                                 weatherInfo = null,
@@ -67,6 +67,35 @@ class WeatherViewModel @Inject constructor(
 
         }
     }
+
+    fun loadIsDay() {
+        viewModelScope.launch {
+            try {
+                locationTracker.getCurrentLocation().collect { location ->
+                    when (val result =
+                        repository.getIsDay(location.latitude, location.longitude)) {
+                        is Resource.Success -> {
+                            _state.value = _state.value.copy(
+                                isDay = result.data!!.isDay
+                            )
+                        }
+                        is Resource.Error -> {
+                            _state.value = _state.value.copy(
+                                isDay = 0
+                            )
+                        }
+                    }
+                }
+            } catch (e: NoPermissionsException) {
+                _state.value = _state.value.copy(
+                    isLoading = false,
+                    error = "Couldn't retrieve location. Make sure to grant permission and enable GPS."
+                )
+            }
+
+        }
+    }
 }
+
 
 

@@ -1,6 +1,7 @@
 package com.paulkera.weatherinfo.data.repository
 
 import com.paulkera.weatherinfo.data.mappers.toWeatherInfo
+import com.paulkera.weatherinfo.data.remote.IsDay
 import com.paulkera.weatherinfo.data.remote.WeatherApi
 import com.paulkera.weatherinfo.domain.repository.WeatherRepository
 import com.paulkera.weatherinfo.domain.util.Resource
@@ -21,9 +22,26 @@ class WeatherRepositoryImp @Inject constructor(
                     long = long
                 ).toWeatherInfo()
             )
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(e.message ?: "An unknown error occurred.")
         }
+    }
+
+    override suspend fun getIsDay(lat: Double, long: Double): Resource<IsDay> {
+
+        return try {
+            Resource.Success(
+                data = api.getIsDay(
+                    lat = lat,
+                    long = long
+                )
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Resource.Error(e.message ?: "An unknown error occurred.")
+        }
+
+
     }
 }

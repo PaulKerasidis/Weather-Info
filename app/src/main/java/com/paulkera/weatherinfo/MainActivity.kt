@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.paulkera.weatherinfo.presentation.theme.WeatherInfoTheme
 import com.paulkera.weatherinfo.presentation.ui.composables.WeatherCard
 import com.paulkera.weatherinfo.presentation.ui.composables.WeatherForecast
@@ -41,7 +42,7 @@ class MainActivity : ComponentActivity() {
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
-            viewModel.loadWeatherInfo()
+            viewModel.reLoadWeatherInfo()
         }
         permissionLauncher.launch(
             arrayOf(
@@ -52,22 +53,26 @@ class MainActivity : ComponentActivity() {
         setContent {
             WeatherInfoTheme {
 
+                val systemUiController = rememberSystemUiController()
+                systemUiController.isSystemBarsVisible = false
+
                 val weatherInfo by viewModel.state.collectAsStateWithLifecycle()
 
-
                 val brightDay = Brush.verticalGradient(
+                    colors = listOf(Color(0xFF08244F), Color(0xFF0B42AB))
+                )
+
+                val night = Brush.verticalGradient(
                     colors = listOf(Color(0xFF2F5AF4), Color(0xFF0FA2AB)),
                 )
-                val cloudyDay = Brush.verticalGradient(
-                    colors = listOf(Color(0xFFBCE8FF), Color(0xFFFFFFFF))
-                )
+
                 Box(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize().background(if(weatherInfo.isDay == 0) night else brightDay )
                 ) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(brightDay)
+
                     ) {
                         WeatherCard(
                             weatherViewModel = viewModel,

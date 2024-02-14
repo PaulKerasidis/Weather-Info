@@ -5,115 +5,144 @@ import com.paulkera.weatherinfo.R
 
 sealed class WeatherType(
     val weatherDesc: String,
-    @DrawableRes val iconRes: Int
+    @DrawableRes val iconResDay: Int,
+    @DrawableRes val iconResNight: Int
 ) {
     object ClearSky : WeatherType(
         weatherDesc = "Clear sky",
-        iconRes = R.drawable.ic_sunny
+        iconResDay = R.drawable.day_clear,
+        iconResNight = R.drawable.night_half_moon_clear
     )
     object MainlyClear : WeatherType(
         weatherDesc = "Mainly clear",
-        iconRes = R.drawable.ic_cloudy
+        iconResDay = R.drawable.day_partial_cloud,
+        iconResNight = R.drawable.night_half_moon_partial_cloud
     )
     object PartlyCloudy : WeatherType(
         weatherDesc = "Partly cloudy",
-        iconRes = R.drawable.ic_cloudy
+        iconResDay = R.drawable.day_partial_cloud,
+        iconResNight = R.drawable.night_half_moon_partial_cloud
     )
     object Overcast : WeatherType(
         weatherDesc = "Overcast",
-        iconRes = R.drawable.ic_cloudy
+        iconResDay = R.drawable.overcast,
+        iconResNight = R.drawable.overcast
     )
     object Foggy : WeatherType(
         weatherDesc = "Foggy",
-        iconRes = R.drawable.ic_very_cloudy
+        iconResDay = R.drawable.fog,
+        iconResNight = R.drawable.fog
+
     )
     object DepositingRimeFog : WeatherType(
         weatherDesc = "Depositing rime fog",
-        iconRes = R.drawable.ic_very_cloudy
+        iconResDay = R.drawable.mist,
+        iconResNight = R.drawable.mist
     )
     object LightDrizzle : WeatherType(
         weatherDesc = "Light drizzle",
-        iconRes = R.drawable.ic_rainshower
+        iconResDay = R.drawable.rain,
+        iconResNight = R.drawable.rain
     )
     object ModerateDrizzle : WeatherType(
         weatherDesc = "Moderate drizzle",
-        iconRes = R.drawable.ic_rainshower
+        iconResDay = R.drawable.rain,
+        iconResNight = R.drawable.rain
     )
     object DenseDrizzle : WeatherType(
         weatherDesc = "Dense drizzle",
-        iconRes = R.drawable.ic_rainshower
+        iconResDay = R.drawable.rain,
+        iconResNight = R.drawable.rain
     )
     object LightFreezingDrizzle : WeatherType(
         weatherDesc = "Slight freezing drizzle",
-        iconRes = R.drawable.ic_snowyrainy
+        iconResDay = R.drawable.sleet,
+        iconResNight = R.drawable.sleet
     )
     object DenseFreezingDrizzle : WeatherType(
         weatherDesc = "Dense freezing drizzle",
-        iconRes = R.drawable.ic_snowyrainy
+        iconResDay = R.drawable.snow,
+        iconResNight = R.drawable.snow
     )
     object SlightRain : WeatherType(
         weatherDesc = "Slight rain",
-        iconRes = R.drawable.ic_rainy
+        iconResDay = R.drawable.rain,
+        iconResNight = R.drawable.rain
     )
     object ModerateRain : WeatherType(
         weatherDesc = "Rainy",
-        iconRes = R.drawable.ic_rainy
+        iconResDay = R.drawable.rain,
+        iconResNight = R.drawable.rain
     )
     object HeavyRain : WeatherType(
         weatherDesc = "Heavy rain",
-        iconRes = R.drawable.ic_rainy
+        iconResDay = R.drawable.rain,
+        iconResNight = R.drawable.rain
     )
     object HeavyFreezingRain: WeatherType(
         weatherDesc = "Heavy freezing rain",
-        iconRes = R.drawable.ic_snowyrainy
+        iconResDay = R.drawable.sleet,
+        iconResNight = R.drawable.sleet
     )
     object SlightSnowFall: WeatherType(
         weatherDesc = "Slight snow fall",
-        iconRes = R.drawable.ic_snowy
+        iconResDay = R.drawable.snow,
+        iconResNight = R.drawable.snow
     )
     object ModerateSnowFall: WeatherType(
         weatherDesc = "Moderate snow fall",
-        iconRes = R.drawable.ic_heavysnow
+        iconResDay =  R.drawable.snow,
+        iconResNight =  R.drawable.snow
     )
     object HeavySnowFall: WeatherType(
         weatherDesc = "Heavy snow fall",
-        iconRes = R.drawable.ic_heavysnow
+        iconResDay =  R.drawable.snow,
+        iconResNight =  R.drawable.snow
     )
     object SnowGrains: WeatherType(
         weatherDesc = "Snow grains",
-        iconRes = R.drawable.ic_heavysnow
+        iconResDay =  R.drawable.snow,
+        iconResNight =  R.drawable.snow
     )
     object SlightRainShowers: WeatherType(
         weatherDesc = "Slight rain showers",
-        iconRes = R.drawable.ic_rainshower
+        iconResDay = R.drawable.rain,
+        iconResNight = R.drawable.rain
     )
     object ModerateRainShowers: WeatherType(
         weatherDesc = "Moderate rain showers",
-        iconRes = R.drawable.ic_rainshower
+        iconResDay = R.drawable.rain,
+        iconResNight = R.drawable.rain
     )
     object ViolentRainShowers: WeatherType(
         weatherDesc = "Violent rain showers",
-        iconRes = R.drawable.ic_rainshower
+        iconResDay = R.drawable.rain,
+        iconResNight = R.drawable.rain
     )
     object SlightSnowShowers: WeatherType(
         weatherDesc = "Light snow showers",
-        iconRes = R.drawable.ic_snowy
+        iconResDay =  R.drawable.snow,
+        iconResNight =  R.drawable.snow
     )
     object HeavySnowShowers: WeatherType(
         weatherDesc = "Heavy snow showers",
-        iconRes = R.drawable.ic_snowy
+        iconResDay =  R.drawable.snow,
+        iconResNight =  R.drawable.snow
     )
     object ModerateThunderstorm: WeatherType(
         weatherDesc = "Moderate thunderstorm",
-        iconRes = R.drawable.ic_thunder
+        iconResDay = R.drawable.thunder,
+        iconResNight = R.drawable.thunder
     )
     object SlightHailThunderstorm: WeatherType(
         weatherDesc = "Thunderstorm with slight hail",
-        iconRes = R.drawable.ic_rainythunder
+        iconResDay = R.drawable.rain_thunder,
+        iconResNight = R.drawable.rain_thunder
     )
     object HeavyHailThunderstorm: WeatherType(
         weatherDesc = "Thunderstorm with heavy hail",
-        iconRes = R.drawable.ic_rainythunder
+        iconResDay = R.drawable.rain_thunder,
+        iconResNight = R.drawable.rain_thunder
     )
 
     companion object {

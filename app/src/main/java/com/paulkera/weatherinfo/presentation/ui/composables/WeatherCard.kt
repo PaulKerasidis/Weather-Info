@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -46,6 +47,7 @@ fun WeatherCard(
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(10.dp))
                 .padding(16.dp)
+                //shadow(7.dp)
         ) {
             Column(
                 modifier = Modifier
@@ -61,10 +63,11 @@ fun WeatherCard(
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Image(painter = painterResource(
-                    id = data.weatherType.iconRes)
-                    , contentDescription = null,
-                    modifier = Modifier.width(200.dp)
+                Image(
+                    painter = painterResource(
+                    id = if(weatherInfo.isDay == 1) data.weatherType.iconResNight else data.weatherType.iconResDay ),
+                    contentDescription = null,
+                    modifier = Modifier.width(250.dp).height(150.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
